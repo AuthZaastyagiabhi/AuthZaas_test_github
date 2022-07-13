@@ -11,7 +11,6 @@ token = {"valid": valid, "payload": payload} {
 
 allow {
     is_token_valid
-    action_allowed
 }
 
 is_token_valid {
@@ -19,8 +18,4 @@ is_token_valid {
   now := time.now_ns() / 1000000000
   token.payload.nbf <= now
   now < token.payload.exp
-}
-
-action_allowed {
-  startswith(http_request.path, base64url.decode(token.payload.path))
 }
